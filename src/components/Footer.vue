@@ -12,14 +12,14 @@
             <div class="container">
                 <div class="my-footer">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-12 d-lg-flex align-items-lg-center">
+                        <div class="col-lg-4 col-md-12 col-sm-12 d-lg-flex align-items-lg-center">
                             <div class="logo text-lg-start text-center">
                                 <a href="">{{ logo }}</a>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="footer-menu">
-                                <ul class="list-unstyled text-lg-start text-center">
+                                <ul class="list-unstyled text-lg-start text-md-start text-center">
                                     <li><a href=""><i class="bi bi-house-door-fill"></i> Home</a></li>
                                     <li><a href=""><i class="bi bi-gender-male"></i> Male</a></li>
                                     <li><a href=""><i class="bi bi-gender-female"></i> Female</a></li>
@@ -28,9 +28,9 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="footer-madiel">
-                                <ul class="list-unstyled text-lg-start text-center">
+                                <ul class="list-unstyled text-lg-start text-md-start text-center">
                                     <li><a :href="`tel:${phoneNumber}`"><i class="bi bi-telephone-fill"></i> Tel: {{ phoneNumber }}</a></li>
                                     <li><a href=""><i class="bi bi-facebook"></i> Facebook</a></li>
                                     <li><a href=""><i class="bi bi-instagram"></i> Instagram</a></li>
@@ -62,7 +62,7 @@
     width: 100%;
     height: auto;
     padding: 50px 0px;
-    background: rgba(128, 128, 128, 0.615);
+    /* background: rgba(128, 128, 128, 0.615); */
 }
 .my-footer{
     width: 100%;
@@ -72,15 +72,16 @@ a{
     text-decoration: none;
 }
 .logo > a{
-    color: #fff;
+    color: #000;
     font-family: IrishGrover;
     font-size: 35px;
+    font-weight: bold;
 }
 .footer-menu > ul > li{
     padding: 8px 0px;
 }
 .footer-menu > ul > li > a{
-    color: #fff;
+    color: #000;
     font-family: roboto;
     font-size: 18px;
     font-weight: bold;
@@ -89,7 +90,7 @@ a{
     padding: 8px 0px;
 }
 .footer-madiel > ul > li > a{
-    color: #fff;
+    color: #000;
     font-family: roboto;
     font-size: 18px;
     font-weight: bold;

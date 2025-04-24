@@ -5,6 +5,9 @@ const logo = ref('Phirom Store');
 const isnone = ref(false);
 const isMobileMenuOpen = ref(false);
 const isUserDropdownOpen = ref(false);
+const isSearchInputOpen = ref(false);
+const showFormLogin = ref(false);
+const showFormSingup = ref(false);
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -16,76 +19,113 @@ const toggleDropdown = () => {
 
 const toggleUserDropdown = () => {
   isUserDropdownOpen.value = !isUserDropdownOpen.value;
-  isProductDropdownOpen.value = false;
 };
+
+const toggleSearchInput = () => {
+  isSearchInputOpen.value = !isSearchInputOpen.value;
+};
+
+const toggleFormLogin = () => {
+  showFormLogin.value = !showFormLogin.value;
+}
+
+const toggleFormSingup = () => {
+  showFormSingup.value = !showFormSingup.value;
+}
 </script>
 
 <template>
   <section class="main-navbar">
     <div class="narbar">
-      <div class="container d-flex justify-content-between align-items-center py-4">
+      <div class="container d-flex align-items-center py-4">
         <div class="logo-name">
-          <a href="#">{{ logo }}</a>
+          <a href="javascript:void(0)">{{ logo }}</a>
         </div>
-        <div class="hamburger d-md-none">
-          <button @click="toggleMobileMenu" class="border-0 bg-transparent">
-            <i class="bi" :class="isMobileMenuOpen ? 'bi-x' : 'bi-list'" style="font-size: 32px;"></i>
-          </button>
-        </div>
-        <div class="nav d-md-block d-sm-none d-none">
-          <ul class="d-flex list-unstyled align-items-center mb-0">
-            <li><a href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
+        <div class="nav d-lg-block d-none">
+          <ul class="d-flex list-unstyled align-items-center justify-content-end mb-0">
+            <li><a href="javascript:void(0)"><i class="bi bi-house-door-fill"></i> Home</a></li>
             <li class="dropdown">
-              <a href="#" class="none-dropdown position-relative" @click="toggleDropdown">
+              <a href="javascript:void(0)" class="none-dropdown position-relative" @click="toggleDropdown">
                 Product
                 <i class="bi" :class="isnone ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
               </a>
               <ul class="dropdown-item position-absolute list-unstyled" :class="{ show: isnone }">
-                <li><a href="#"><i class="bi bi-gender-male"></i> Male</a></li>
-                <li><a href="#"><i class="bi bi-gender-female"></i> Female</a></li>
+                <li><a href="javascript:void(0)"><i class="bi bi-gender-male"></i> Male</a></li>
+                <li><a href="javascript:void(0)"><i class="bi bi-gender-female"></i> Female</a></li>
               </ul>
             </li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="javascript:void(0)">About</a></li>
+            <li><a href="javascript:void(0)">Contact</a></li>
+          </ul>
+        </div>
+        <div class="icons d-flex">
+          <ul class="d-flex list-unstyled align-items-center mb-0">
             <li class="dropdown">
-              <a href="#" class="none-dropdown position-relative" @click="toggleUserDropdown">
+              <a href="javascript:void(0)" class="none-dropdown position-relative" @click="toggleUserDropdown">
                 <i class="bi bi-person-fill"></i>
               </a>
               <ul class="dropdown-item position-absolute list-unstyled" :class="{ show: isUserDropdownOpen }">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Signup</a></li>
+                <li>
+                  <a href="javascript:void(0)" @click="toggleFormLogin">Login</a>
+                </li>
+                <li><a href="javascript:void(0)" @click="toggleFormSingup">Signup</a></li>
               </ul>
+            </li>
+            <li style="padding-right: 5px;">
+              <a href="javascript:void(0)"><i class="bi bi-cart-fill"></i></a>
+            </li>
+            <li class="mysearch">
+              <a href="javascript:void(0)" @click="toggleSearchInput" :class="{ 'd-none': isSearchInputOpen }">
+                <i class="bi bi-search"></i>
+              </a>
+              <div class="input-search" :class="{ 'd-none': !isSearchInputOpen }">
+                <input type="text" placeholder="Search...">
+                <i class="bi bi-x close-icon" @click="toggleSearchInput" style="font-size: 20px;"></i>
+              </div>
             </li>
           </ul>
         </div>
+        <div class="hamburger d-lg-none ms-auto">
+          <button @click="toggleMobileMenu" class="border-0 bg-transparent">
+            <i class="bi" :class="isMobileMenuOpen ? 'bi-x' : 'bi-list'" style="font-size: 32px;"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="mobile-menu d-md-none" :class="{ 'mobile-menu-open': isMobileMenuOpen }">
+      <div class="mobile-menu d-lg-none" :class="{ 'mobile-menu-open': isMobileMenuOpen }">
         <ul class="list-unstyled">
-          <li><a href="#" @click="toggleMobileMenu"><i class="bi bi-house-door-fill"></i> Home</a></li>
+          <li><a href="javascript:void(0)" @click="toggleMobileMenu"><i class="bi bi-house-door-fill"></i> Home</a></li>
           <li class="dropdown">
-            <a href="#" class="none-dropdown" @click="toggleDropdown">
+            <a href="javascript:void(0)" class="none-dropdown" @click="toggleDropdown">
               Product
               <i class="bi" :class="isnone ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
             </a>
             <ul class="dropdown-item list-unstyled" :class="{ show: isnone }">
-              <li><a href="#" @click="toggleMobileMenu">Male</a></li>
-              <li><a href="#" @click="toggleMobileMenu">Female</a></li>
+              <li><a href="javascript:void(0)" @click="toggleMobileMenu">Male</a></li>
+              <li><a href="javascript:void(0)" @click="toggleMobileMenu">Female</a></li>
             </ul>
           </li>
-          <li><a href="#" @click="toggleMobileMenu">About</a></li>
-          <li><a href="#" @click="toggleMobileMenu">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="none-dropdown" @click="toggleUserDropdown">
-              <i class="bi bi-person-fill"></i> Acount
-              <i class="bi" :class="isUserDropdownOpen ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
-            </a>
-            <ul class="dropdown-item list-unstyled" :class="{ show: isUserDropdownOpen }">
-              <li><a href="#" @click="toggleMobileMenu">Login</a></li>
-              <li><a href="#" @click="toggleMobileMenu">Signup</a></li>
-            </ul>
-          </li>
+          <li><a href="javascript:void(0)" @click="toggleMobileMenu">About</a></li>
+          <li><a href="javascript:void(0)" @click="toggleMobileMenu">Contact</a></li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="form-login" v-if="showFormLogin">
+      <div class="form-header">
+        <h5>FORM LOGIN</h5>
+        <button @click="showFormLogin = false" class="close-alert"><i class="bi bi-x"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="form-singup" v-if="showFormSingup">
+      <div class="form-header">
+        <h5>FORM SINGUP</h5>
+        <button @click="showFormSingup = false" class="close-alert"><i class="bi bi-x"></i></button>
       </div>
     </div>
   </section>
@@ -96,49 +136,63 @@ const toggleUserDropdown = () => {
   font-family: roboto;
   src: url(../assets/fonts/Roboto-Light.ttf);
 }
+
 @font-face {
-    font-family: IrishGrover;
-    src: url(../assets/fonts/IrishGrover-Regular.ttf);
+  font-family: IrishGrover;
+  src: url(../assets/fonts/IrishGrover-Regular.ttf);
 }
 
 @font-face {
-    font-family: DancingScript;
-    src: url(../assets/fonts/DancingScript-Bold.ttf);
+  font-family: DancingScript;
+  src: url(../assets/fonts/DancingScript-Bold.ttf);
 }
-.main-navbar{
-    position: sticky;
-    top: 0;
+
+.main-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
 .narbar {
   width: 100%;
   height: auto;
   background: #fff;
-  z-index: 1000;
 }
 
 a {
   text-decoration: none;
 }
 
-.logo-name > a {
+.logo-name>a {
   color: #000;
   font-size: 34px;
   font-weight: bold;
   font-family: IrishGrover;
 }
 
-.nav > ul {
+.nav>ul {
   margin: 0;
   padding: 0;
   align-items: center;
 }
 
-.nav > ul > li > a {
+.nav>ul>li>a {
   color: #000;
   padding-right: 30px;
   font-family: roboto;
   font-weight: bold;
   font-size: 18px;
+}
+
+.icons>ul {
+  margin: 0;
+  padding: 0;
+}
+
+.icons>ul>li>a {
+  color: #000;
+  padding-left: 20px;
+  font-size: 20px;
 }
 
 .dropdown {
@@ -194,6 +248,7 @@ a {
 .mobile-menu.mobile-menu-open {
   max-height: 500px;
 }
+
 .mobile-menu ul {
   margin: 0;
   padding: 20px;
@@ -224,5 +279,153 @@ a {
 
 .hamburger button:focus {
   outline: none;
+}
+
+.mysearch {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-search input {
+  width: 150px;
+  padding: 5px 30px 5px 10px;
+  border: none;
+  box-shadow: 0px 0px 2px #000;
+  border-radius: 3px;
+}
+
+.input-search input:focus {
+  outline: none;
+}
+
+.input-search .close-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #000;
+}
+
+.d-none {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .icons {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .icons {
+    flex: 1;
+    margin-left: 240px;
+  }
+
+  .hamburger {
+    position: absolute;
+    right: 15px;
+  }
+
+  .input-search input {
+    width: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo-name>a {
+    font-size: 24px;
+  }
+
+  .container {
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .icons {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .hamburger {
+    position: absolute;
+    right: 15px;
+  }
+
+  .input-search input {
+    width: 60px;
+  }
+}
+
+.form-login,
+.form-singup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #FFF;
+  color: #000000;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.form-header h5 {
+    margin: 0;
+    font-family: roboto;
+    font-size: 20px;
+    font-weight: bold;
+}
+.close-alert {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-alert:hover {
+    color: #666;
 }
 </style>
