@@ -1,37 +1,33 @@
 <script setup>
 import Navbar from './Navbar.vue';
 import Footer from './Footer.vue';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 
 const newproducts = ref("NEW PRODUCTS");
 const viewsall = ref("Views All");
 const favoriteproducts = ref("FAVORITE PRODUCTS");
 
 const productsnew = ref([
-    { id: 1, image: '/images/image4.jpg', title: 'Nike Black', price: 120, alt: 'image' },
-    { id: 2, image: '/images/image5.jpg', title: 'Nike Black', price: 130, alt: 'image' },
-    { id: 3, image: '/images/image6.jpg', title: 'Nike Black', price: 140, alt: 'image' },
-    { id: 4, image: '/images/image7.jpg', title: 'Nike Black', price: 150, alt: 'image' },
+    { id: 1, image: '/images/image4.jpg', title: 'Nike Black', price: 120, alt: 'Nike Black Sneakers' },
+    { id: 2, image: '/images/image5.jpg', title: 'Nike Black', price: 130, alt: 'Nike Black Sneakers' },
+    { id: 3, image: '/images/image6.jpg', title: 'Nike Black', price: 140, alt: 'Nike Black Sneakers' },
+    { id: 4, image: '/images/image7.jpg', title: 'Nike Black', price: 150, alt: 'Nike Black Sneakers' },
 ]);
 
-const animate = ref('animate__animated');
-const bounceInLeft = ref('animate__bounceInLeft');
-const bounceInRight = ref('animate__bounceInRight');
-
 const imgsubbanner = ref([
-    {id: 5, image: '/images/image8.jpg', alt: 'image'},
-    {id: 6, image: '/images/image9.jpg', alt: 'image'},
+    { id: 5, image: '/images/image8.jpg', alt: 'Promotional Banner 1' },
+    { id: 6, image: '/images/image9.jpg', alt: 'Promotional Banner 2' },
 ]);
 
 const productsfavorite = ref([
-    { id: 7, image: '/images/image10.jpg', title: 'Nike Black', price: 160, alt: 'image' },
-    { id: 8, image: '/images/image11.jpg', title: 'Nike Black', price: 170, alt: 'image' },
-    { id: 9, image: '/images/image12.jpg', title: 'Nike Black', price: 180, alt: 'image' },
-    { id: 10, image: '/images/image13.jpg', title: 'Nike Black', price: 190, alt: 'image' },
-    { id: 11, image: '/images/image14.jpg', title: 'Nike Black', price: 110, alt: 'image' },
-    { id: 12, image: '/images/image5.jpg', title: 'Nike Black', price: 140, alt: 'image' },
-    { id: 13, image: '/images/image6.jpg', title: 'Nike Black', price: 180, alt: 'image' },
-    { id: 14, image: '/images/image7.jpg', title: 'Nike Black', price: 170, alt: 'image' },
+    { id: 7, image: '/images/image10.jpg', title: 'Nike Black', price: 160, alt: 'Nike Black Sneakers' },
+    { id: 8, image: '/images/image11.jpg', title: 'Nike Black', price: 170, alt: 'Nike Black Sneakers' },
+    { id: 9, image: '/images/image12.jpg', title: 'Nike Black', price: 180, alt: 'Nike Black Sneakers' },
+    { id: 10, image: '/images/image13.jpg', title: 'Nike Black', price: 190, alt: 'Nike Black Sneakers' },
+    { id: 11, image: '/images/image14.jpg', title: 'Nike Black', price: 110, alt: 'Nike Black Sneakers' },
+    { id: 12, image: '/images/image5.jpg', title: 'Nike Black', price: 140, alt: 'Nike Black Sneakers' },
+    { id: 13, image: '/images/image6.jpg', title: 'Nike Black', price: 180, alt: 'Nike Black Sneakers' },
+    { id: 14, image: '/images/image7.jpg', title: 'Nike Black', price: 170, alt: 'Nike Black Sneakers' },
 ]);
 
 const showCartAlert = ref(false);
@@ -67,19 +63,19 @@ const removeFromCart = (itemId) => {
 </script>
 
 <template>
-    <Navbar />
+    <Navbar :cart-count="cartItems.length" />
 
     <section>
         <div class="hero-banner">
             <div class="container-fluid">
                 <div class="row g-4 g-md-3 g-sm-2">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="img1-hero-baner" :class="[animate, bounceInLeft]">
+                        <div class="img1-hero-baner">
                             <img src="/images/image1.jpg" alt="Hero Image 1">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="row g-4 g-md-3 g-sm-2" :class="[animate, bounceInRight]">
+                        <div class="row g-4 g-md-3 g-sm-2">
                             <div class="col-12">
                                 <div class="img2-hero-baner">
                                     <img src="/images/image2.jpg" alt="Hero Image 2">
@@ -103,7 +99,7 @@ const removeFromCart = (itemId) => {
                 <div class="row pt-5 pb-3">
                     <div class="text-newproduct d-flex justify-content-between">
                         <h5>{{ newproducts }}</h5>
-                        <h5><a href="#">{{ viewsall }}</a></h5>
+                        <h5><a href="javascript:void(0)">{{ viewsall }}</a></h5>
                     </div>
                 </div>
                 <div class="row g-4 g-md-3 g-sm-1">
@@ -111,7 +107,7 @@ const removeFromCart = (itemId) => {
                         <div class="product-cart">
                             <div class="product-img position-relative">
                                 <img :src="product.image" :alt="product.alt">
-                                <a href="#" class="cart-icon position-absolute" @click.prevent="addToCart(product)">
+                                <a href="javascript:void(0)" class="cart-icon position-absolute" @click="addToCart(product)" :aria-label="`Add ${product.title} to cart`">
                                     <i class="bi bi-basket2"></i>
                                 </a>
                             </div>
@@ -146,7 +142,7 @@ const removeFromCart = (itemId) => {
                 <div class="row pt-5 pb-3">
                     <div class="text-newproduct d-flex justify-content-between">
                         <h5>{{ favoriteproducts }}</h5>
-                        <h5><a href="#">{{ viewsall }}</a></h5>
+                        <h5><a href="javascript:void(0)">{{ viewsall }}</a></h5>
                     </div>
                 </div>
                 <div class="row g-4 g-md-3 g-sm-1">
@@ -154,7 +150,7 @@ const removeFromCart = (itemId) => {
                         <div class="product-cart">
                             <div class="product-img position-relative">
                                 <img :src="product.image" :alt="product.alt">
-                                <a href="#" class="cart-icon position-absolute" @click.prevent="addToCart(product)">
+                                <a href="javascript:void(0)" class="cart-icon position-absolute" @click="addToCart(product)" :aria-label="`Add ${product.title} to cart`">
                                     <i class="bi bi-basket2"></i>
                                 </a>
                             </div>
@@ -171,25 +167,25 @@ const removeFromCart = (itemId) => {
 
     <section>
         <div v-if="showCartAlert" class="cart-alert">
-                <div class="cart-header">
-                    <h5>Your Product</h5>
-                    <button @click="showCartAlert = false" class="close-alert"><i class="bi bi-x"></i></button>
-                </div>
-                <div class="cart-items">
-                    <div v-for="item in cartItems" :key="item.id" class="cart-item">
-                        <img :src="item.image" :alt="item.alt" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <h6>{{ item.title }}</h6>
-                            <p>${{ item.price }}</p>
-                        </div>
-                        <span class="cart-item-quantity" style="font-weight: 600;">Qty: {{ item.quantity }}</span>
-                        <button @click="removeFromCart(item.id)" class="remove-item"><i class="bi bi-x"></i></button>
+            <div class="cart-header">
+                <h5>Your Product</h5>
+                <button @click="showCartAlert = false" class="close-alert" aria-label="Close cart"><i class="bi bi-x"></i></button>
+            </div>
+            <div class="cart-items">
+                <div v-for="item in cartItems" :key="item.id" class="cart-item">
+                    <img :src="item.image" :alt="item.alt" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h6>{{ item.title }}</h6>
+                        <p>${{ item.price }}</p>
                     </div>
-                </div>
-                <div class="cart-total">
-                    <p>Total: ${{ totalPrice }}</p>
+                    <span class="cart-item-quantity" style="font-weight: 600;">Qty: {{ item.quantity }}</span>
+                    <button @click="removeFromCart(item.id)" class="remove-item" aria-label="Remove item"><i class="bi bi-x"></i></button>
                 </div>
             </div>
+            <div class="cart-total">
+                <p>Total: ${{ totalPrice }}</p>
+            </div>
+        </div>
     </section>
 
     <Footer />
@@ -321,10 +317,6 @@ const removeFromCart = (itemId) => {
     height: auto;
     object-fit: cover;
     border-radius: 10px;
-}
-
-.cartlert {
-    position: relative;
 }
 
 .cart-alert {

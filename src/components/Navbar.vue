@@ -1,13 +1,18 @@
 <script setup>
 import { ref } from 'vue';
 
+defineProps({
+  cartCount: {
+    type: Number,
+    default: 0,
+  },
+});
+
 const logo = ref('Phirom Store');
 const isnone = ref(false);
 const isMobileMenuOpen = ref(false);
 const isUserDropdownOpen = ref(false);
 const isSearchInputOpen = ref(false);
-const showFormLogin = ref(false);
-const showFormSingup = ref(false);
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -26,12 +31,12 @@ const toggleSearchInput = () => {
 };
 
 const toggleFormLogin = () => {
-  showFormLogin.value = !showFormLogin.value;
-}
+  isUserDropdownOpen.value = false;
+};
 
-const toggleFormSingup = () => {
-  showFormSingup.value = !showFormSingup.value;
-}
+const toggleFormSignup = () => {
+  isUserDropdownOpen.value = false;
+};
 </script>
 
 <template>
@@ -50,8 +55,8 @@ const toggleFormSingup = () => {
                 <i class="bi" :class="isnone ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
               </a>
               <ul class="dropdown-item position-absolute list-unstyled" :class="{ show: isnone }">
-                <li><a href="javascript:void(0)"><i class="bi bi-gender-male"></i> Male</a></li>
-                <li><a href="javascript:void(0)"><i class="bi bi-gender-female"></i> Female</a></li>
+                <li><a href="javascript:void(0)">Men</a></li>
+                <li><a href="javascript:void(0)">Women</a></li>
               </ul>
             </li>
             <li><a href="javascript:void(0)">About</a></li>
@@ -68,25 +73,28 @@ const toggleFormSingup = () => {
                 <li>
                   <a href="javascript:void(0)" @click="toggleFormLogin">Login</a>
                 </li>
-                <li><a href="javascript:void(0)" @click="toggleFormSingup">Signup</a></li>
+                <li><a href="javascript:void(0)" @click="toggleFormSignup">Signup</a></li>
               </ul>
             </li>
-            <li style="padding-right: 5px;">
-              <a href="javascript:void(0)"><i class="bi bi-cart-fill"></i></a>
+            <li style="padding-right: 5px; position: relative;">
+              <a href="javascript:void(0)" aria-label="View cart">
+                <i class="bi bi-cart-fill"></i>
+                <span v-if="cartCount > 0" class="cart-count">{{ cartCount }}</span>
+              </a>
             </li>
             <li class="mysearch">
-              <a href="javascript:void(0)" @click="toggleSearchInput" :class="{ 'd-none': isSearchInputOpen }">
+              <a href="javascript:void(0)" @click="toggleSearchInput" :class="{ 'd-none': isSearchInputOpen }" aria-label="Toggle search">
                 <i class="bi bi-search"></i>
               </a>
               <div class="input-search" :class="{ 'd-none': !isSearchInputOpen }">
-                <input type="text" placeholder="Search...">
-                <i class="bi bi-x close-icon" @click="toggleSearchInput" style="font-size: 20px;"></i>
+                <input type="text" placeholder="Search..." aria-label="Search products">
+                <i class="bi bi-x close-icon" @click="toggleSearchInput" style="font-size: 20px;" aria-label="Close search"></i>
               </div>
             </li>
           </ul>
         </div>
         <div class="hamburger d-lg-none ms-auto">
-          <button @click="toggleMobileMenu" class="border-0 bg-transparent">
+          <button @click="toggleMobileMenu" class="border-0 bg-transparent" aria-label="Toggle mobile menu">
             <i class="bi" :class="isMobileMenuOpen ? 'bi-x' : 'bi-list'" style="font-size: 32px;"></i>
           </button>
         </div>
@@ -110,25 +118,9 @@ const toggleFormSingup = () => {
         </ul>
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="form-login" v-if="showFormLogin">
-      <div class="form-header">
-        <h5>FORM LOGIN</h5>
-        <button @click="showFormLogin = false" class="close-alert"><i class="bi bi-x"></i></button>
-      </div>
-    </div>
   </section>
-
-  <section>
-    <div class="form-singup" v-if="showFormSingup">
-      <div class="form-header">
-        <h5>FORM SINGUP</h5>
-        <button @click="showFormSingup = false" class="close-alert"><i class="bi bi-x"></i></button>
-      </div>
-    </div>
-  </section>
+  
 </template>
 
 <style scoped>
@@ -317,21 +309,41 @@ a {
   display: none;
 }
 
-@media (min-width: 992px) {
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-family: roboto;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .logo-name>a {
+    font-size: 24px;
   }
 
-  .nav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  .container {
+    flex-wrap: wrap;
+    position: relative;
   }
 
   .icons {
-    margin-left: auto;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .hamburger {
+    position: absolute;
+    right: 15px;
+  }
+
+  .input-search input {
+    width: 60px;
   }
 }
 
@@ -360,72 +372,21 @@ a {
   }
 }
 
-@media (max-width: 767px) {
-  .logo-name>a {
-    font-size: 24px;
-  }
-
+@media (min-width: 992px) {
   .container {
-    flex-wrap: wrap;
-    position: relative;
-  }
-
-  .icons {
-    flex: 1;
-    justify-content: center;
-  }
-
-  .hamburger {
-    position: absolute;
-    right: 15px;
-  }
-
-  .input-search input {
-    width: 60px;
-  }
-}
-
-.form-login,
-.form-singup {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FFF;
-  color: #000000;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  width: 90%;
-  max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.form-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
+  }
 
-.form-header h5 {
-    margin: 0;
-    font-family: roboto;
-    font-size: 20px;
-    font-weight: bold;
-}
-.close-alert {
-    background: none;
-    border: none;
-    color: #000;
-    font-size: 24px;
-    cursor: pointer;
-}
+  .nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
 
-.close-alert:hover {
-    color: #666;
+  .icons {
+    margin-left: auto;
+  }
 }
 </style>
